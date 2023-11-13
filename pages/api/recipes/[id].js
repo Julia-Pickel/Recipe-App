@@ -1,43 +1,17 @@
-export default function RecipeDetail() {
-  const { data, error, isLoading } = useSWR("api/recipes");
-  console.log(data);
+import connect from "@/db/connect";
+import Recipe from "@/db/Models/Recipe";
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
+export default async function handler(request, response) {
+  //Datenbankverbindung
+  await connect();
+
+  if (request.method === "GET") {
+    const recipe = await Recipe.findById(request.query.id);
+
+    if (!recipe) {
+      response.status(404).json({ message: "Not found." });
+    }
+
+    response.status(200).json(recipe);
   }
-
-  if (error) {
-    return <h1>There is an Error. Try again later.</h1>;
-  }
-
-  if (data) {
-    //console.log(artPiecesInfo);
-  }
-
-  return (
-    <>
-      <h1>
-        <span role="img" aria-label="A chef">
-          🥤
-        </span>
-        Refreshing Lemonades
-      </h1>
-      {data.map((recipe) => (
-        <>
-          <ul>
-            <li key={recipe._id}>{recipe.title}</li>
-            <image key={recipe._id}>{recipe.image}</image>
-            <li key={recipe._id}>
-              <strong>Ingredients: </strong>
-              {recipe.ingredients}
-            </li>
-            <li key={recipe._id}>
-              <strong>Description: </strong>
-              {recipe.description}
-            </li>
-          </ul>
-        </>
-      ))}
-    </>
-  );
 }
