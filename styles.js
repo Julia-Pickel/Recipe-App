@@ -8,12 +8,10 @@ export default createGlobalStyle`
   }
 
   :root {
-    --primary-color: #118ab2;
-    --primary-color-hover: #0077b6;
-    --danger-color: #9d0208;
-    --danger-color-hover: crimson;
-    --neutral-color: lightGray;
-    --neutral-color-hover: gray;
+    --primary-color: #FFBC0A;
+    --secondary-color-grey: #252629;
+    --primary-color-hover: #FFBC0A;
+    --neutral-color: #E5E5E5;
   }
 
   html {
@@ -21,8 +19,19 @@ export default createGlobalStyle`
     font-size: 16px;
   }
 
+
   body {
     margin: 0;
+    font-family: system-ui;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 60px 1fr 60px;
+  }
+
+  ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;  
   }
 
   #__next {
